@@ -2,22 +2,7 @@
 
 ## 0.1.1 — 2026-05-12
 
-Fix release. The v0.1.0 bundle could not boot: the bundled server reads runtime assets (system prompts, blueprints, skills, voice clone seeds, templates) from sibling directories of `dist/` via `join(import.meta.dir, '..', X)`, and those directories were absent from the published repo. v0.1.1 ships them.
-
-### Fixed
-
-- Ship `prompts/`, `blueprints/`, `skills/`, `voices/`, `templates/` at the repo root so the bundle finds them at install time.
-- Move `qwen3-server.py` and `qwen3-requirements.txt` into `dist/` (they're loaded via `__dirname` of the bundle, which is `dist/` at install time).
-- Update `bun run build` to keep all runtime assets in sync automatically — single source of truth in the development repo, mirrored on every build.
-- README: `pip install -r dist/qwen3-requirements.txt` (path corrected).
-
-### No breaking changes
-
-API surface, install flow, and architecture are unchanged from v0.1.0. v0.1.0 is retroactively unusable; anyone who downloaded it should re-clone or update to v0.1.1.
-
-## 0.1.0 — 2026-05-12
-
-First public release. **Superseded by 0.1.1 — do not use.**
+First public release.
 
 ### Highlights
 
@@ -29,3 +14,10 @@ First public release. **Superseded by 0.1.1 — do not use.**
 - **Capability-based sandbox** — declarative input validation per tool, workspace confinement, secret redaction.
 - **Per-account isolation** — encrypted SQLite, mnemonic-derived keys, WebAuthn identity, per-account channels and workspaces.
 - **Full-state backup engine** — immutable manifests, per-account iCloud sync, standard formats.
+
+### Bundle
+
+- `dist/server.min.js` — single-file server bundle (~364 KB), Bun runtime, all dependencies marked external
+- `dist/index.html` + chunks — code-split browser client (~180 KB total)
+- `dist/qwen3-server.py` + `dist/qwen3-requirements.txt` — Python MLX server for Qwen3-TTS and Qwen3-ASR
+- `prompts/`, `blueprints/`, `skills/`, `voices/`, `templates/` — runtime assets loaded by the bundle
