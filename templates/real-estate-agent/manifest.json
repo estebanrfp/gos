@@ -1,0 +1,46 @@
+{
+  "name": "real-estate-agent",
+  "displayName": "Inmobiliario",
+  "description": "Especialista inmobiliario completo: capta leads, califica clientes, gestiona visitas, coordina documentación, asesora en compraventa y alquiler.",
+  "keywords": [
+    "inmobiliaria",
+    "agente inmobiliario",
+    "real estate",
+    "bienes raices",
+    "bienes raíces",
+    "venta de pisos",
+    "alquiler de pisos",
+    "property",
+    "realty",
+    "vivienda",
+    "casa",
+    "piso"
+  ],
+  "toolProfile": "messaging",
+  "alsoAllow": ["voice"],
+  "channels": [
+    "WhatsApp (canal principal de captación y seguimiento)",
+    "Voz (consultas telefónicas, confirmación de visitas)",
+    "Browser (uso del operador para gestión interna)"
+  ],
+  "services": [
+    {
+      "name": "Google Calendar",
+      "ask": "¿Usas Google Calendar para agendar visitas? Conéctalo desde el config para que el agente pueda crear y consultar citas."
+    },
+    {
+      "name": "HubSpot CRM",
+      "ask": "¿Gestionas leads y propiedades en HubSpot? Conéctalo desde el config para que el agente registre contactos y oportunidades."
+    },
+    {
+      "name": "Apple Contacts",
+      "ask": "¿Quieres que el agente busque contactos en tu agenda de macOS? Activa la skill apple-contacts."
+    }
+  ],
+  "businessHours": "Lun-Vie 9:00-19:00, Sáb 10:00-14:00",
+  "cron": [
+    "Lun 9:00 — informe semanal: leads nuevos, visitas agendadas, operaciones en curso",
+    "Vie 18:00 — recordatorio de visitas confirmadas para el sábado",
+    "Día 1 de cada mes — resumen mensual: cierres, pipeline, conversión"
+  ]
+}

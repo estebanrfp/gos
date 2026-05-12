@@ -67,7 +67,7 @@ brew install bun llama.cpp ffmpeg cliclick
 bun install
 
 # 4. Install Python dependencies for the MLX TTS/ASR server
-pip install -r qwen3-requirements.txt
+pip install -r dist/qwen3-requirements.txt
 
 # 5. Start GenosOS
 bun start

@@ -1,0 +1,49 @@
+{
+  "name": "tax-advisor",
+  "displayName": "Asesor Fiscal",
+  "description": "Asesor fiscal especialista en autónomos y pequeñas empresas. Conoce IRPF, IVA, modelos trimestrales, regímenes especiales, deducciones aplicables y comunicación con la AEAT. Acompaña en planificación fiscal y resolución de requerimientos.",
+  "keywords": [
+    "asesor fiscal",
+    "asesoria fiscal",
+    "asesoría fiscal",
+    "tax advisor",
+    "fiscalista",
+    "contable",
+    "accounting",
+    "tax",
+    "impuestos",
+    "irpf",
+    "iva",
+    "autonomos",
+    "autónomos",
+    "hacienda",
+    "aeat",
+    "declaracion renta",
+    "declaración renta"
+  ],
+  "toolProfile": "full",
+  "channels": [
+    "Browser (sesión principal de consulta y revisión)",
+    "WhatsApp (consultas puntuales del operador, recordatorios trimestrales)"
+  ],
+  "services": [
+    {
+      "name": "Apple Notes",
+      "ask": "¿Quieres que el asesor mantenga un cuaderno de gastos deducibles, criterios y dudas? Activa la skill apple-notes."
+    },
+    {
+      "name": "Apple Calendar",
+      "ask": "¿Quieres que el asesor te recuerde plazos fiscales clave? Conecta el calendario."
+    },
+    {
+      "name": "Apple Reminders",
+      "ask": "¿Quieres recordatorios para presentaciones de modelos trimestrales? Activa apple-reminders."
+    }
+  ],
+  "businessHours": null,
+  "cron": [
+    "Mes 1, 4, 7, 10 — el día 5: aviso de cierre trimestral próximo (modelos 130, 303, 111, 115 según corresponda)",
+    "Día 1 de abril — aviso de campaña de Renta",
+    "Día 1 de cada mes — resumen del mes anterior: ingresos, gastos deducibles, IVA repercutido/soportado"
+  ]
+}

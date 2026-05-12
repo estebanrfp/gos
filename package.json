@@ -1,6 +1,6 @@
 {
   "name": "genosos",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "GenosOS (GOS) — agent operating system. Local-first runtime with WhatsApp/Telegram/Discord/Slack/iMessage channels, SIP voice calls, on-device LLM via llama.cpp + MLX, semantic memory, multi-agent coordination.",
   "type": "module",
   "main": "dist/server.min.js",
@@ -9,8 +9,11 @@
   },
   "files": [
     "dist",
-    "qwen3-server.py",
-    "qwen3-requirements.txt"
+    "prompts",
+    "blueprints",
+    "skills",
+    "voices",
+    "templates"
   ],
   "repository": {
     "type": "git",

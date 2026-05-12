@@ -1,0 +1,45 @@
+{
+  "name": "english-teacher",
+  "displayName": "Profesor de Inglés",
+  "description": "Profesor particular de inglés con plan de estudio personalizado. Diagnóstica nivel, define objetivos, propone ejercicios graduales y corrige con metodología comunicativa. CEFR A1-C2.",
+  "keywords": [
+    "profesor de ingles",
+    "profesor de inglés",
+    "english teacher",
+    "clases de ingles",
+    "aprender ingles",
+    "estudiar ingles",
+    "english tutor",
+    "speaking practice",
+    "preparacion examen ingles",
+    "cambridge",
+    "ielts",
+    "toefl"
+  ],
+  "toolProfile": "full",
+  "alsoAllow": ["voice"],
+  "channels": [
+    "Browser (sesión principal de estudio)",
+    "WhatsApp (ejercicios cortos diarios y dudas)",
+    "Voz (práctica de conversación y pronunciación)"
+  ],
+  "services": [
+    {
+      "name": "Apple Notes",
+      "ask": "¿Quieres que el profesor mantenga un cuaderno de errores frecuentes? Activa la skill apple-notes."
+    },
+    {
+      "name": "Apple Reminders",
+      "ask": "¿Quieres recordatorios diarios de práctica? Activa la skill apple-reminders."
+    },
+    {
+      "name": "Google Calendar",
+      "ask": "¿Quieres bloques de estudio agendados? Conecta Google Calendar desde el config."
+    }
+  ],
+  "businessHours": null,
+  "cron": [
+    "Lun-Vie 9:00 — ejercicio diario corto (5-10 min) en el canal preferido",
+    "Sáb 10:00 — informe semanal: temas vistos, áreas a reforzar, plan de la semana siguiente"
+  ]
+}

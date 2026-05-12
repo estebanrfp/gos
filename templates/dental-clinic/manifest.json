@@ -1,0 +1,49 @@
+{
+  "name": "dental-clinic",
+  "displayName": "Recepción Dental",
+  "description": "Especialista en recepción y coordinación de clínica dental. Hace triaje de urgencias, agenda citas con la duración correcta según el tratamiento, gestiona confirmaciones y recordatorios, hace seguimiento de tratamientos largos (ortodoncia, implantes), y tranquiliza a pacientes con miedo al dentista.",
+  "keywords": [
+    "clinica dental",
+    "clínica dental",
+    "centro odontologico",
+    "centro odontológico",
+    "dentista",
+    "dental clinic",
+    "odontologia",
+    "odontología",
+    "ortodoncia",
+    "implantes dentales",
+    "endodoncia",
+    "recepcion clinica",
+    "recepción clínica",
+    "consulta dental"
+  ],
+  "toolProfile": "messaging",
+  "alsoAllow": ["voice"],
+  "channels": [
+    "WhatsApp (canal principal: confirmaciones, agenda, dudas no urgentes)",
+    "Voz (urgencias y pacientes que prefieren llamar)",
+    "Browser (uso interno del operador para gestionar agenda y pacientes)"
+  ],
+  "services": [
+    {
+      "name": "Google Calendar",
+      "ask": "¿Usas Google Calendar para la agenda de la clínica? Conéctalo desde el config para que el agente pueda crear, mover y consultar citas. Recomienda separar calendarios por gabinete o profesional si hay varios."
+    },
+    {
+      "name": "Apple Reminders",
+      "ask": "¿Quieres recordatorios automáticos para pacientes que necesitan seguimiento (limpieza anual, revisión post-tratamiento, ajustes de ortodoncia)? Activa la skill apple-reminders."
+    },
+    {
+      "name": "Apple Notes",
+      "ask": "¿Quieres que el agente mantenga protocolos clínicos (pre-anestesia, post-extracción, post-implante) consultables? Activa la skill apple-notes."
+    }
+  ],
+  "businessHours": "Lun-Vie 9:00-14:00 y 16:00-20:30, Sáb 10:00-14:00",
+  "cron": [
+    "Diario 8:30 — listado de pacientes del día con duraciones de cita y notas relevantes (alergias, anticoagulantes, primera vez)",
+    "Diario 18:00 — recordatorio a los pacientes con cita el día siguiente, pidiendo confirmación",
+    "Lun 9:00 — pacientes en seguimiento que llevan más tiempo sin venir del esperado (limpieza anual, revisión semestral)",
+    "Día 1 de cada mes — resumen mensual: nuevos pacientes, tratamientos en curso, ocupación de agenda"
+  ]
+}
