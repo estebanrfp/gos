@@ -1,0 +1,70 @@
+{
+  "name": "genosos",
+  "version": "0.1.0",
+  "description": "GenosOS (GOS) — agent operating system. Local-first runtime with WhatsApp/Telegram/Discord/Slack/iMessage channels, SIP voice calls, on-device LLM via llama.cpp + MLX, semantic memory, multi-agent coordination.",
+  "type": "module",
+  "main": "dist/server.min.js",
+  "scripts": {
+    "start": "bun dist/server.min.js"
+  },
+  "files": [
+    "dist",
+    "qwen3-server.py",
+    "qwen3-requirements.txt"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/estebanrfp/gos.git"
+  },
+  "keywords": [
+    "GenosOS",
+    "gos",
+    "agent",
+    "ai",
+    "llm",
+    "local-first",
+    "privacy",
+    "voice",
+    "whatsapp",
+    "telegram",
+    "discord",
+    "slack",
+    "imessage",
+    "sip",
+    "multiagent",
+    "memory",
+    "rag",
+    "knowledge-graph"
+  ],
+  "author": {
+    "name": "Esteban Fuster Pozzi",
+    "email": "estebanrfp@gmail.com",
+    "url": "https://github.com/estebanrfp"
+  },
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/estebanrfp/gos/issues"
+  },
+  "homepage": "https://github.com/estebanrfp/gos#readme",
+  "engines": {
+    "bun": ">=1.2.0"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "0.79.0",
+    "@evan/opus": "1.0.3",
+    "@mariozechner/pi-ai": "0.58.4",
+    "@msgpack/msgpack": "3.1.3",
+    "@slack/bolt": "4.6.0",
+    "@whiskeysockets/baileys": "7.0.0-rc.9",
+    "croner": "10.0.1",
+    "discord.js": "14.25.1",
+    "frappe-charts": "1.6.2",
+    "grammy": "1.41.1",
+    "node-llama-cpp": "3.18.1",
+    "playwright": "1.59.1",
+    "ses": "1.15.0",
+    "sip": "0.0.6",
+    "ws": "8.19.0",
+    "zod": "4.3.6"
+  }
+}

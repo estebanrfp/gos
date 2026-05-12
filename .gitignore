@@ -1,0 +1,15 @@
+node_modules/
+package-lock.json
+pnpm-lock.yaml
+bun.lock
+bun.lockb
+
+.DS_Store
+.env
+*.log
+
+.vscode/
+.idea/
+
+# User runtime data (created at runtime by setup wizard)
+~/.genos/
