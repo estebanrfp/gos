@@ -1,6 +1,6 @@
 {
   "name": "genosos",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "GenosOS (GOS) — agent operating system. Local-first runtime with WhatsApp/Telegram/Discord/Slack/iMessage channels, SIP voice calls, on-device LLM via llama.cpp + MLX, semantic memory, multi-agent coordination.",
   "type": "module",
   "main": "dist/server.min.js",
@@ -52,6 +52,13 @@
   "engines": {
     "bun": ">=1.2.0"
   },
+  "trustedDependencies": [
+    "@whiskeysockets/baileys",
+    "node-llama-cpp",
+    "protobufjs",
+    "sharp",
+    "@google/genai"
+  ],
   "dependencies": {
     "@anthropic-ai/sdk": "0.79.0",
     "@evan/opus": "1.0.3",

@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.2 — 2026-05-12
+
+Install fix.
+
+`bun install` blocked the postinstall scripts of `node-llama-cpp`, `sharp`, `protobufjs`, `@whiskeysockets/baileys` and `@google/genai` by default (Bun's security guard). Without those scripts, the native bindings for the local embedding engine (Qwen3-Embedding-8B via `node-llama-cpp`) and the image processor (`sharp`, used by Baileys and vision) would not be compiled, and the bundle would fail at runtime as soon as embeddings or media were touched.
+
+v0.1.2 adds these packages to `trustedDependencies` so `bun install` runs their scripts automatically. Verified end-to-end with a fresh clone + clean `bun install` on Apple Silicon — `sharp` and `node-llama-cpp` both load on first import.
+
+No code changes. Same bundle as 0.1.1; only `package.json` differs.
+
 ## 0.1.1 — 2026-05-12
 
 First public release.
