@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.1.3 — 2026-05-12
+
+README overhaul. Same bundle, better install experience.
+
+- Apple Silicon-only warning surfaced upfront (was buried in Requirements)
+- Disk space requirement (~35 GB) called out before the install starts
+- Total setup time estimate (30 min - 2h, model download dominates)
+- `python@3.11` added to the brew install line so users without Python don't stall at step 4
+- `pip install` changed to `python3 -m pip install` for portability across system Python / venv setups
+- New "Verify the install" section — `curl` health check on port 4400
+- New "Troubleshooting" section covering the 7 most likely first-time errors (port in use, externally-managed Python, Intel Mac, HuggingFace stall, missing PATH entry, lost mnemonic)
+- Mnemonic explained as BIP39 12/24 words, with the irreversibility warning made explicit
+
+No code, bundle, or asset changes.
+
 ## 0.1.2 — 2026-05-12
 
 First public release.

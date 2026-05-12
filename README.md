@@ -8,8 +8,14 @@ A standalone, local-first runtime for autonomous AI agents. Memory, multi-channe
 [![Production Build](https://img.shields.io/badge/Production%20Build-Free%20for%20personal%20%26%20commercial%20use-brightgreen.svg?style=for-the-badge)](https://github.com/estebanrfp/gos/blob/main/LICENSE)
 
 ![Project Status](https://img.shields.io/badge/status-beta-orange)
-![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Apple%20Silicon-lightgrey)
+![Platform](https://img.shields.io/badge/platform-Apple%20Silicon%20ONLY-lightgrey)
 ![Runtime](https://img.shields.io/badge/runtime-Bun-black)
+
+> ⚠️ **Apple Silicon only.** GenosOS uses MLX for the voice pipeline (Qwen3-TTS + Qwen3-ASR), which runs exclusively on M-series chips. Intel Macs are not supported and will fail at the `pip install` step.
+
+> 💾 **Disk space:** budget **~35 GB free** — ~33 GB for the local model weights (downloaded on first run from HuggingFace), ~1 GB for JS deps + Chromium, ~1 GB headroom.
+
+> ⏱️ **Total setup time:** ~30 min (fast fiber) to ~2 hours (slow connection). The bulk is the model download in the first-run wizard.
 
 ## Table of Contents
 
@@ -17,7 +23,9 @@ A standalone, local-first runtime for autonomous AI agents. Memory, multi-channe
 - [Highlights](#highlights)
 - [Requirements](#requirements)
 - [Installation](#installation)
+- [Verify the install](#verify-the-install)
 - [First Run](#first-run)
+- [Troubleshooting](#troubleshooting)
 - [Architecture Overview](#architecture-overview)
 - [License](#license)
 - [Author](#author)
@@ -44,14 +52,15 @@ GenosOS is a server runtime that gives an LLM-driven agent the operating-system 
 
 ## Requirements
 
-- **Hardware**: Apple Silicon Mac (M1/M2/M3/M4), 64 GB RAM recommended for the full local stack
-- **OS**: macOS 14+
-- **Runtime**: [Bun](https://bun.sh) `>=1.2.0`
-- **Python**: 3.11+ (for the Qwen3 MLX server — TTS + ASR)
+- **Hardware:** Apple Silicon Mac (M1/M2/M3/M4). 64 GB RAM recommended for the full local stack (32 GB works with one model loaded at a time).
+- **OS:** macOS 14+ (Sonoma or newer).
+- **Disk:** ~35 GB free (see warning above).
+- **Runtime:** [Bun](https://bun.sh) `>=1.2.0`.
+- **Python:** 3.11+ (for the Qwen3 MLX server — TTS + ASR).
 - **System packages** via Homebrew:
   - `llama.cpp` — chat + embedding models
-  - `ffmpeg` — audio conversion
-  - `cliclick` — Computer Use tool (optional)
+  - `ffmpeg` — audio conversion for messaging channels
+  - `cliclick` — Computer Use tool (optional, only needed if you want the agent to control your desktop)
 
 ## Installation
 
@@ -60,30 +69,64 @@ GenosOS is a server runtime that gives an LLM-driven agent the operating-system 
 git clone https://github.com/estebanrfp/gos.git
 cd gos
 
-# 2. Install system dependencies
-brew install bun llama.cpp ffmpeg cliclick
+# 2. Install system dependencies (skip the ones you already have)
+brew install bun llama.cpp ffmpeg cliclick python@3.11
 
 # 3. Install JavaScript runtime dependencies
 bun install
 
 # 4. Install Python dependencies for the MLX TTS/ASR server
-pip install -r dist/qwen3-requirements.txt
+python3 -m pip install -r dist/qwen3-requirements.txt
 
 # 5. Start GenosOS
 bun start
 ```
 
+## Verify the install
+
+While the server is running (after step 5), in another terminal:
+
+```sh
+curl -s -o /dev/null -w '%{http_code}\n' http://localhost:4400
+# Expected: 200
+```
+
+A `200` confirms the WebSocket server is up. If you see `Connection refused`, the server did not start — check the boot log printed by `bun start`.
+
 ## First Run
 
-On first boot, the setup wizard will:
+Open `http://localhost:4400` in your browser. The setup wizard will:
 
-1. Open `http://localhost:4400` in your browser
-2. Prompt for a mnemonic passphrase (used to derive your encryption key — it never leaves your machine)
-3. Detect missing GGUF models and auto-download them from HuggingFace (~33 GB total)
-4. Start `llama-server` for chat and embeddings, and launch the Python MLX server for voice
-5. Land you in your first agent's chat session
+1. **Ask for a mnemonic passphrase.** This is a [BIP39](https://en.bitcoin.it/wiki/Seed_phrase)-style 12- or 24-word seed used to derive your encryption key. The key never leaves your machine. If you don't have one, the wizard can generate one — **write it down**, because losing it means losing all your encrypted data permanently.
+2. **Pick an LLM provider** for the (optional) cloud boost — Anthropic, OpenAI, or Gemini. You can skip this entirely and stay 100% local.
+3. **Auto-download local GGUF models** from HuggingFace (~33 GB total). Progress bars per model. Resumable if interrupted.
+4. **Start `llama-server`** for chat + embeddings and **launch the Python MLX server** for voice.
+5. **Land you in your first agent's chat session.** A short onboarding conversation will configure the agent's soul, identity, user context, and rules.
 
-After first run, every subsequent boot is fast — models load once, channels reconnect automatically.
+After the first run, every subsequent boot is fast (~5-10 seconds): models load once, channels reconnect automatically.
+
+## Troubleshooting
+
+**`bun: command not found`** after `brew install bun`
+→ Open a new terminal window so the shell picks up the new PATH entry.
+
+**`Failed to start server. Is port 4400 in use?`**
+→ Another process is bound to `:4400`. Find it with `lsof -i :4400` and stop it, or pass `PORT=4500 bun start` to use a different port.
+
+**`pip install` fails with `error: externally-managed-environment`** on macOS 14+
+→ Use a virtual environment: `python3 -m venv .venv && source .venv/bin/activate && python3 -m pip install -r dist/qwen3-requirements.txt`. After this, always activate the venv before running `bun start` so the MLX server can find its packages.
+
+**`mlx` install fails** with architecture errors
+→ You are on an Intel Mac. GenosOS does not support Intel — only Apple Silicon (M1/M2/M3/M4).
+
+**HuggingFace download stalls or fails**
+→ Check your network. Downloads are resumable: stop GenosOS and restart it, the wizard picks up where it left off via HTTP `Range` requests and `.part` temp files.
+
+**Bundle boots but voice / channels don't work**
+→ Make sure `llama-server` is on your PATH (`which llama-server` should print a path under `/opt/homebrew/`). Check the boot log of `bun start` for `[local] ...` and `[qwen3] ...` lines confirming the model subprocesses started.
+
+**I forgot my mnemonic**
+→ There is no recovery. Your encrypted data is unrecoverable. Delete `~/.genos/` and start fresh, or restore from a backup if you made one (see the Backup feature in-app).
 
 ## Architecture Overview
 
