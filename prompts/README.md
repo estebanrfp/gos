@@ -2,7 +2,7 @@
 
 All system prompts for GenosOS in TOON format. Editable without code changes — modify any `.md` file and restart the server.
 
-All prompts are optimized for minimal token usage while preserving full functionality. Format: compact TOON `[SECTION]` headers understood natively by Gemma 4.
+All prompts are optimized for minimal token usage while preserving full functionality. Format: compact TOON `[SECTION]` headers understood natively by modern LLMs (Qwen, Gemma, etc.).
 
 ## Chat & Channels
 
