@@ -968,6 +968,10 @@
   color: #06b6d4;
 }
 
+.chat__thinking-icon.deep {
+  color: var(--deep-accent, #a855f7);
+}
+
 .chat__thinking-label {
   font-style: italic;
 }
