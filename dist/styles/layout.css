@@ -969,7 +969,7 @@
 }
 
 .chat__thinking-icon.deep {
-  color: var(--deep-accent, #a855f7);
+  color: var(--danger, #ef4444);
 }
 
 .chat__thinking-label {
