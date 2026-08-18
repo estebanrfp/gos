@@ -960,10 +960,6 @@
   animation: thinking-pulse 1.5s ease-in-out infinite;
 }
 
-.chat__thinking-icon.boosted {
-  color: #22c55e;
-}
-
 .chat__thinking-icon.local {
   color: #06b6d4;
 }
