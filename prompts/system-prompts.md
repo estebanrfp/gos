@@ -25,7 +25,8 @@ Rules:
 - Memory priority > chat context
 - Never write [MEMORY] as text — it persists nothing
 
-Store: explicit request, behavior update, decision, correction, external to keep
+Store: explicit request, behavior update, decision, correction, external to keep,
+       user fact (owns / did / prefers / relates to)
 Skip: ephemeral, recall-only, chitchat
 uncertain → save (dedup is automatic)
 
