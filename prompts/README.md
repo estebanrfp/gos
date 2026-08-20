@@ -26,8 +26,7 @@ All prompts are optimized for minimal token usage while preserving full function
 
 | File | Used by | Purpose |
 |------|---------|---------|
-| `compaction.md` | Session compaction (legacy fallback) | Durable vs ephemeral criteria, topics separated by `---` |
-| `compact-structured.md` | Session compaction (primary path) | One-pass JSON extraction: `sessionSummary` + topics. Falls back to `compaction.md` on failure |
+| `compact-structured.md` | Session compaction (primary path) | One-pass JSON extraction: `sessionSummary` + topics |
 | `compact-label.md` | Every memory write path | Compact headline (40–80 chars) for graph labels and edge annotations. Polarity-preserving |
 
 ## Memory — knowledge graph
@@ -39,7 +38,6 @@ All prompts are optimized for minimal token usage while preserving full function
 | `classify-source.md` | Brain pre-check | `SINGLE_TOPIC` vs `MULTI_TOPIC` — decides whether a source gets fragmented |
 | `classify-topic.md` | Global Consolidate path | `SAME_TOPIC` vs `UNRELATED` — classification only; the server concatenates literally (Principle 6) |
 | `consolidate-memories.md` | Auto-link (`linkNewMemory`) | Finds meaningful edges between memories. JSON-only output |
-| `transform-memory.md` | Memory transformation | Raw data → first-person experiences |
 | `patch-json.md` | JSON memory enrichment | Updates a JSON fragment with new data |
 
 ## Memory — embeddings
@@ -65,7 +63,6 @@ Some prompts use `{{VARIABLE}}` placeholders replaced at runtime:
 |----------|---------|---------------|
 | `{{PURPOSE}}` | `call-purpose.md` | The dispatched call instruction |
 | `{{TRANSCRIPT}}` | `post-call.md` | Phone call transcript |
-| `{{AGENT_NAME}}` | `transform-memory.md` | Agent display name |
 | `{{SOURCE_NAME}}`, `{{SOURCE_ID}}` | `agent-to-agent.md` | Sender agent name and ID |
 | `{{TARGET_NAME}}`, `{{TARGET_ID}}` | `agent-to-agent.md` | Receiver agent name and ID |
 | `{{PARTICIPANT_NAME}}` | `room-mode.md` | Agent name in the room |
