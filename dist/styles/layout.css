@@ -3320,3 +3320,48 @@
   flex-shrink: 0;
   opacity: 0.85;
 }
+
+/* ── Relink preview ───────────────────────────────────────────────────────
+   Reuses the caveman-preview shell (backdrop, panel, header) and only
+   overrides the body: one column of grouped rows instead of three of text. */
+.relink-preview-panel { max-width: 720px; }
+.relink-preview-body {
+  display: block;
+  grid-template-columns: none;
+}
+.relink-group { margin-bottom: 18px; }
+.relink-group:last-child { margin-bottom: 0; }
+.relink-row {
+  padding: 8px 10px;
+  border-left: 3px solid var(--border);
+  margin-bottom: 6px;
+  background: var(--bg-secondary);
+  border-radius: 0 4px 4px 0;
+}
+.relink-group--add .relink-row { border-left-color: #22c55e; }
+.relink-group--remove .relink-row { border-left-color: #ef4444; }
+.relink-group--keep .relink-row { border-left-color: var(--border); opacity: 0.65; }
+.relink-row-label {
+  font-size: 0.85rem;
+  color: var(--text);
+  line-height: 1.35;
+}
+.relink-row-reason {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 3px;
+  font-style: italic;
+}
+.relink-empty {
+  padding: 24px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+.relink-preview-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 12px 16px;
+  border-top: 1px solid var(--border);
+}

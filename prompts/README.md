@@ -38,6 +38,7 @@ All prompts are optimized for minimal token usage while preserving full function
 | `classify-source.md` | Brain pre-check | `SINGLE_TOPIC` vs `MULTI_TOPIC` — decides whether a source gets fragmented |
 | `classify-topic.md` | Global Consolidate path | `SAME_TOPIC` vs `UNRELATED` — classification only; the server concatenates literally (Principle 6) |
 | `consolidate-memories.md` | Auto-link (`linkNewMemory`) | Finds meaningful edges between memories. JSON-only output |
+| `judge-relations.md` | Relink button (per node) | Judges each EXISTING link keep/drop by name, plus candidates to add. Deliberately laxer than consolidate-memories: not-worth-creating ≠ no-longer-true |
 | `patch-json.md` | JSON memory enrichment | Updates a JSON fragment with new data |
 
 ## Memory — embeddings
