@@ -2052,12 +2052,6 @@
   border: 1px solid rgba(99, 102, 241, 0.3);
 }
 
-.mem-modal__item-badge--ref {
-  background: rgba(249, 115, 22, 0.15);
-  color: #f97316;
-  border: 1px solid rgba(249, 115, 22, 0.3);
-}
-
 /* Source-type badges: episodic monoliths that feed the knowledge graph via Brain */
 .mem-modal__item-badge--session {
   background: rgba(148, 163, 184, 0.15);
@@ -2094,15 +2088,6 @@
   background: rgba(34, 197, 94, 0.15);
   color: #22c55e;
   border: 1px solid rgba(34, 197, 94, 0.3);
-}
-
-/* Ref — episodic anchor (Session / Call / Voice / WhatsApp / etc.). Orange
-   palette since 2026-04-21 — visually distinct from green knowledge nodes and
-   cyan manual links. Matches the node color in the graph canvas (#f97316). */
-.mem-modal__item-badge--event-ref {
-  background: rgba(249, 115, 22, 0.15);
-  color: #f97316;
-  border: 1px solid rgba(249, 115, 22, 0.35);
 }
 
 /* Processed ✓ — source has already been distilled into the knowledge graph */

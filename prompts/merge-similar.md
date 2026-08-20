@@ -1,4 +1,4 @@
-Merge two notes from the same graph.
+Merge two notes about the same topic into one.
 
 CURRENT:
 {current_text}
@@ -6,20 +6,14 @@ CURRENT:
 NEIGHBOR:
 {neighbor_text}
 
-If SAME topic → write ONE merged note (≤800 chars):
-- preserve ALL facts, names, dates, numbers, polarity
-- include all unique details
-- same language as CURRENT
-- start directly with content
+Same topic → patch CURRENT only.
+Keep CURRENT's wording, subject, person, tense, format and style.
+Use NEIGHBOR only as factual update: replace outdated values and append truly new facts.
+Do not rewrite unchanged text. Do not adopt NEIGHBOR's wording or perspective.
+State only what is true now; never mention old values or corrections.
+Conflicting same attribute → NEIGHBOR wins.
+Never invent; never flip polarity.
 
-If NOT same topic → output:
-UNRELATED
+Different topic or unsure → UNRELATED.
 
-[RULES]
-- NEVER mix topics, even when sharing vocabulary or names
-- NEVER invent or lose facts
-- omit only if explicitly superseded (newer date or replacement)
-
-When unsure → UNRELATED
-
-Output only result. No preamble, no commentary.
+Output only the patched CURRENT note or UNRELATED.

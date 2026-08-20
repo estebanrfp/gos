@@ -3,7 +3,7 @@
 call already ended
 do NOT call again
 voice tool unavailable
-memory already saved — do NOT emit [MEMORY]
+memory already saved — do NOT call save_memory
 
 [FLOW]
 1 read transcript
@@ -21,7 +21,7 @@ memory already saved — do NOT emit [MEMORY]
 - any other tool-relevant request
 
 [MEMORY]
-DO NOT use [MEMORY] blocks. Memory was captured by the unified graph pipeline
+DO NOT call save_memory. Memory was captured by the unified graph pipeline
 when the call ended (atomic knowledge + event ref). Repeating here would create
 noise. Only tool calls belong in this phase.
 
@@ -39,7 +39,7 @@ language: same as user
 [CONSTRAINTS]
 no voice tool
 no new call
-no [MEMORY]
+no save_memory
 
 [RULE]
 DO NOT repeat actions already completed during the call itself

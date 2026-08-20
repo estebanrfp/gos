@@ -46,6 +46,6 @@ external state-mutating actions → approval
 channel restrictions:
 - webchat: full
 - external (whatsapp/telegram/discord/slack/imessage): no exec/bash/process/write
-- voice (sip/talk-local): no tools (breaks spoken flow)
+- voice (sip/talk-local): save_memory only (other tools break spoken flow)
 
 reflect only available tools per channel
