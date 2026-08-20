@@ -1873,7 +1873,7 @@
 .caveman-preview-panel {
   width: min(1200px, 100%);
   max-height: 90vh;
-  background: var(--bg-surface, #1a1d24);
+  background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 10px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
@@ -1887,7 +1887,7 @@
   justify-content: space-between;
   padding: 12px 16px;
   border-bottom: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--bg-secondary);
 }
 .caveman-preview-title { font-weight: 600; font-size: 13px; }
 .caveman-preview-stats { opacity: 0.6; font-weight: 400; }
@@ -3321,75 +3321,106 @@
   opacity: 0.85;
 }
 
-/* ── Relink preview ───────────────────────────────────────────────────────
-   Reuses the caveman-preview shell (backdrop, panel, header) and only
-   overrides the body: one column of grouped rows instead of three of text. */
-.relink-preview-panel { max-width: 720px; }
-.relink-preview-body {
-  display: block;
-  grid-template-columns: none;
-}
-.relink-group { margin-bottom: 18px; }
-.relink-group:last-child { margin-bottom: 0; }
-.relink-row {
-  padding: 8px 10px;
-  border-left: 3px solid var(--border);
-  margin-bottom: 6px;
-  background: var(--bg-secondary);
-  border-radius: 0 4px 4px 0;
-}
-.relink-group--add .relink-row { border-left-color: #22c55e; }
-.relink-group--remove .relink-row { border-left-color: #ef4444; }
-.relink-group--keep .relink-row { border-left-color: var(--border); opacity: 0.65; }
-.relink-row-label {
-  font-size: 0.85rem;
-  color: var(--text);
-  line-height: 1.35;
-}
-.relink-row-reason {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  margin-top: 3px;
-  font-style: italic;
-}
-.relink-empty {
+/* ── Relink review dialog ─────────────────────────────────────────────────
+   Its own shell rather than the caveman-preview one: that dialog is a dark
+   diff viewer by design (and hardcoded a surface through a token that never
+   existed, so it ignored the theme). Everything here comes from the theme
+   tokens, so it matches the modal in both light and dark. */
+.relink-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 24px;
-  text-align: center;
-  color: var(--text-muted);
-  font-size: 0.85rem;
 }
-.relink-preview-footer {
+.relink-panel {
+  width: min(560px, 100%);
+  max-height: 82vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+.relink-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  height: 42px;
+  border-bottom: 1px solid var(--border);
+  flex: none;
+}
+.relink-header-left { display: flex; align-items: baseline; gap: 10px; min-width: 0; }
+.relink-title { font-size: 13px; color: var(--text); }
+.relink-counts { font-size: 11px; color: var(--text-muted); font-family: var(--font-mono); }
+.relink-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+}
+.relink-close:hover { color: var(--text); }
+
+.relink-body { padding: 12px 14px; overflow: auto; flex: 1; min-height: 0; }
+.relink-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text-muted);
+  margin: 12px 0 6px;
+}
+.relink-label:first-child { margin-top: 0; }
+
+.relink-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 7px 9px;
+  margin-bottom: 4px;
+  background: var(--bg-secondary);
+  border-left: 2px solid var(--border);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+label.relink-row { cursor: pointer; }
+label.relink-row:hover { background: var(--bg-hover); }
+.relink-row--add { border-left-color: #22c55e; }
+.relink-row--remove { border-left-color: #ef4444; }
+.relink-row--keep { opacity: 0.5; }
+.relink-check { margin: 2px 0 0; flex: none; cursor: pointer; accent-color: var(--text); }
+.relink-row-text { min-width: 0; }
+.relink-row-label { font-size: 12px; color: var(--text); line-height: 1.4; }
+.relink-row-reason { font-size: 11px; color: var(--text-muted); margin-top: 2px; font-style: italic; }
+.relink-empty { padding: 22px; text-align: center; color: var(--text-muted); font-size: 12px; }
+
+.relink-footer {
   display: flex;
   justify-content: flex-end;
   gap: 8px;
-  padding: 12px 16px;
+  padding: 10px 14px;
   border-top: 1px solid var(--border);
+  flex: none;
 }
-
-/* ── Graph action bar ─────────────────────────────────────────────────────
-   Floats over the canvas; appears only with a node selected. Same actions as
-   the Memory tab editor, reachable without leaving the graph. */
-.graph-actions {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 5;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 8px;
-  background: var(--bg);
+.relink-btn {
+  padding: 5px 14px;
+  font-size: 12px;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--bg-secondary);
   border: 1px solid var(--border);
-  border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  border-radius: var(--radius);
+  cursor: pointer;
 }
-.graph-actions[hidden] { display: none; }
-.graph-actions__status {
-  font-size: 0.72rem;
-  color: var(--text-muted);
-  margin-right: 2px;
-  max-width: 190px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+.relink-btn:hover:not(:disabled) { background: var(--bg-hover); }
+.relink-btn--primary { background: var(--text); color: var(--bg); border-color: var(--text); }
+.relink-btn--primary:hover:not(:disabled) { opacity: 0.85; }
+.relink-btn:disabled { opacity: 0.4; cursor: default; }
+
