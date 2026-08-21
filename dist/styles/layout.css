@@ -1455,10 +1455,27 @@
   border-top: 1px solid var(--border);
 }
 
-/* Hub layout — two columns: embedding preview (left) + navigable topic list (right) */
-.mem-modal__embed-col,
 .mem-modal__embed-col {
   border-right: 1px solid var(--border);
+}
+
+/* Entry points — the extra vectors that reach this memory, one per fact */
+.mem-modal__gates {
+  margin: 0;
+  padding: 8px 16px 12px 34px;
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+}
+
+.mem-modal__gates li {
+  padding: 1px 0;
+}
+
+.mem-modal__gates li::marker {
+  color: var(--text-muted);
+  font-size: 10px;
 }
 
 /* Status dot — top-right corner: green = primary, orange = referential. Clickable to toggle. */
