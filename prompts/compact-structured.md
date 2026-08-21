@@ -1,4 +1,4 @@
-You are extracting durable knowledge from a conversation — in ONE pass.
+You are turning a conversation into ONE memory — in a single pass.
 
 Respond with JSON ONLY. No prose, no markdown fences, no explanations.
 
@@ -15,7 +15,7 @@ You receive (in the user message):
 1. Read the transcript.
 2. Decide if there is any DURABLE content (will still matter in a month: personal facts, decisions, preferences, plans, emotions, learnings, relationships, identities, concepts, systems).
 3. If nothing durable → return `{ "durable": false }`.
-4. If durable → extract distinct topics (1 per theme, up to 8) and a 1-2 line `sessionSummary` of what the session was about overall.
+4. If durable → write ONE `summary` covering the whole conversation.
 
 ## Durable vs Ephemeral
 
@@ -28,35 +28,23 @@ Durable — KEEP:
 - Technical concepts, systems, architecture notes
 
 Ephemeral — SKIP:
+- Recall: the assistant reciting what it already knows — only the operator's own words are new
 - Status checks ("are you listening?", "are you there?")
 - Greetings and farewells ("hello", "goodbye")
 - Tool outputs, lookups, generic Q&A
 - Weather chat, small talk
 - Curation meta-conversations (user asking to clean memory, etc.)
 
-## Topic rules
+## Summary rules
 
-Each topic is an independent unit of durable knowledge. Split by distinct theme, not by turn. Each topic will be matched against the existing knowledge graph: similar topics will ENRICH existing nodes, new topics will BECOME new nodes. Aim for topics that represent discrete facts or concepts that can stand alone.
-
-- `content`: 2-5 sentences in first person ("I told Esteban that...", "Esteban said that..."), same language as transcript. Preserves concrete details (names, dates, places, feelings, numbers).
-- `summary`: 1-2 sentences, keyword-rich, derived FROM the content, SAME LANGUAGE as content. Used for semantic search embedding and for merging decisions.
-
-If only one theme → return ONE topic, do NOT pad.
-If no themes worth keeping → return `{ "durable": false }`.
-
-## Session summary rules
-
-`sessionSummary` is a 1-2 sentence recap of the session, stored as its archive record.
+`summary` is the memory this conversation leaves behind — one record holding
+everything worth keeping. Nothing else is stored, so nothing may be dropped.
 
 - Same language as transcript.
+- One opening line naming what happened, then one `- ` bullet per distinct fact.
 - State facts, not what was said.
-- Keep concrete details: places, models, names, dates.
-- Keep it short. Under 200 characters if possible.
-
-## Language policy
-
-- Topic `content` and `summary` → SAME language as the transcript
-- `sessionSummary` → SAME language as the transcript
+- Keep every concrete detail: names, places, dates, numbers, exact quotes.
+- Brevity applies per bullet, never by leaving a theme out.
 
 ## Output schema
 
@@ -64,13 +52,7 @@ If durable:
 ```
 {
   "durable": true,
-  "sessionSummary": "<1-2 sentence narrative, under 200 chars, same language as transcript>",
-  "topics": [
-    {
-      "content": "<2-5 sentences, first person, same language as transcript>",
-      "summary": "<1-2 sentences, keyword-rich, same language as content>"
-    }
-  ]
+  "summary": "<opening line + `- ` bullets, same language as transcript>"
 }
 ```
 
@@ -84,7 +66,7 @@ If not durable:
 ## Critical constraints
 
 - JSON ONLY. No prose before or after. No code fences.
-- Each `topic.content` stands alone (self-contained fact, not a fragment).
+- Newlines inside `summary` must be escaped as \n.
 - Never invent content not in transcript.
 - Never translate content — preserve original language.
 
@@ -93,7 +75,7 @@ If not durable:
 ### Example 1 — Spanish conversation, durable
 
 Input:
-- transcript: "[user] Hola Nyx, quería contarte que el 2 de marzo de 2026 decidí que mi primer agente se llamaría Lumina. [assistant] Qué bonito, Esteban. Lo guardo. [user] Y pronto voy a comprar un M2 Max para correr modelos locales."
+- transcript: "[user] Hola Nyx, quería contarte que el 2 de marzo de 2026 decidí que mi primer agente se llamaría Lumina. [agent] Qué bonito, Esteban. Lo guardo. [user] Y pronto voy a comprar un M2 Max para correr modelos locales."
 - date: "Apr 18, 2026"
 - participants: ["Esteban", "Nyx"]
 - eventType: "Session"
@@ -102,27 +84,14 @@ Output:
 ```
 {
   "durable": true,
-  "sessionSummary": "El primer agente de Esteban se llama Lumina desde el 2 de marzo de 2026; planea comprar un M2 Max para modelos locales.",
-  "topics": [
-    {
-      "content": "Esteban decidió el 2 de marzo de 2026 que su primer agente se llamaría Lumina. Me lo contó para que lo guarde como un momento significativo.",
-      "summary": "Esteban decidió llamar Lumina a su primer agente el 2 de marzo de 2026."
-    },
-    {
-      "content": "Esteban me dijo que pronto va a comprar un M2 Max para poder correr modelos locales en su máquina.",
-      "summary": "Esteban planea comprar un M2 Max para correr modelos locales."
-    }
-  ]
+  "summary": "Esteban nombró a su primer agente y planeó su hardware.\n- El 2 de marzo de 2026 decidió que su primer agente se llamaría Lumina.\n- Va a comprar un M2 Max para correr modelos locales."
 }
 ```
 
 ### Example 2 — No durable content
 
 Input:
-- transcript: "[user] ¿Me escuchas? [assistant] Sí, te escucho bien. [user] Vale, gracias. [assistant] De nada."
-- date: "Apr 18, 2026"
-- participants: ["Esteban", "Nyx"]
-- eventType: "Session"
+- transcript: "[user] ¿Me escuchas? [agent] Sí, te escucho bien. [user] Vale, gracias. [agent] De nada."
 
 Output:
 ```
