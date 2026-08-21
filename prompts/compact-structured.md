@@ -46,10 +46,11 @@ If no themes worth keeping → return `{ "durable": false }`.
 
 ## Session summary rules
 
-`sessionSummary` is a 1-2 sentence narrative of what the session covered overall. It will become a lightweight "session node" in the memory graph — a temporal anchor that points to the knowledge nodes touched during this session.
+`sessionSummary` is a 1-2 sentence recap of the session, stored as its archive record.
 
 - Same language as transcript.
-- NOT a list of topics — a narrative. ("We discussed X, debugged Y, and decided Z.")
+- State facts, not what was said.
+- Keep concrete details: places, models, names, dates.
 - Keep it short. Under 200 characters if possible.
 
 ## Language policy
@@ -101,7 +102,7 @@ Output:
 ```
 {
   "durable": true,
-  "sessionSummary": "Esteban compartió la decisión del nombre de su primer agente y sus planes de hardware local.",
+  "sessionSummary": "El primer agente de Esteban se llama Lumina desde el 2 de marzo de 2026; planea comprar un M2 Max para modelos locales.",
   "topics": [
     {
       "content": "Esteban decidió el 2 de marzo de 2026 que su primer agente se llamaría Lumina. Me lo contó para que lo guarde como un momento significativo.",
