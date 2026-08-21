@@ -1456,90 +1456,18 @@
 }
 
 /* Hub layout — two columns: embedding preview (left) + navigable topic list (right) */
-.mem-modal__embed-section--split {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  max-height: 280px;
-  overflow: hidden;
-}
-
 .mem-modal__embed-col,
-.mem-modal__topics-col {
-  overflow-y: auto;
-  padding: 8px;
-  min-width: 0;
-}
-
 .mem-modal__embed-col {
   border-right: 1px solid var(--border);
 }
 
-.mem-modal__topics-list {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-top: 6px;
-}
-
-.mem-modal__topic-item {
-  position: relative;
-  padding: 8px;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease;
-  background: var(--bg);
-}
-
 /* Status dot — top-right corner: green = primary, orange = referential. Clickable to toggle. */
-.mem-modal__topic-dot {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #22c55e;
-  cursor: pointer;
-  transition: transform 0.12s ease, box-shadow 0.12s ease;
-  z-index: 2;
-}
-
 .mem-modal__topic-dot:hover {
   transform: scale(1.4);
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
 }
 
-.mem-modal__topic-item--ref .mem-modal__topic-dot {
-  background: #f97316;
-}
-
-/* Bulk actions row — sits next to the "Topic Records (N)" label */
-.mem-modal__topics-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  margin-bottom: 6px;
-}
-
-.mem-modal__topics-bulk {
-  display: flex;
-  gap: 4px;
-}
-
-.mem-modal__topic-bulk-btn {
-  font-size: 0.7em;
-  padding: 3px 8px;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  background: transparent;
-  color: var(--text-muted, #888);
-  cursor: pointer;
-  transition: all 0.12s ease;
-}
-
+.mem-modal__topic-item--ref /* Bulk actions row — sits next to the "Topic Records (N)" label */
 .mem-modal__topic-bulk-btn:hover {
   background: var(--bg-secondary);
   color: var(--text, inherit);
@@ -1549,22 +1477,6 @@
 .mem-modal__topic-item:hover {
   background: var(--bg-secondary);
   border-color: var(--accent, #6366f1);
-}
-
-.mem-modal__topic-label {
-  font-size: 0.7em;
-  opacity: 0.6;
-  margin-bottom: 4px;
-}
-
-.mem-modal__topic-summary {
-  font-size: 0.85em;
-  line-height: 1.4;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .config-modal__preview-label {
@@ -1999,11 +1911,6 @@
   border-bottom: 1px solid var(--border);
 }
 
-.mem-modal__item.hub {
-  background: var(--bg-secondary);
-  border-left: 3px solid var(--text-muted);
-}
-
 .mem-modal__item:hover {
   background: var(--bg-hover);
 }
@@ -2044,12 +1951,6 @@
   padding: 2px 6px;
   border-radius: 3px;
   white-space: nowrap;
-}
-
-.mem-modal__item-badge--hub {
-  background: rgba(99, 102, 241, 0.15);
-  color: #6366f1;
-  border: 1px solid rgba(99, 102, 241, 0.3);
 }
 
 /* Source-type badges: episodic monoliths that feed the knowledge graph via Brain */
@@ -2709,167 +2610,8 @@
 }
 
 /* Compress preview modal — side-by-side diff of original vs compressed content */
-.compress-modal__overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.55);
-  display: grid;
-  place-items: center;
-  z-index: 1000;
-}
-
-.compress-modal__dialog {
-  background: var(--bg-primary);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  width: min(1100px, 94vw);
-  max-height: 86vh;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
-  overflow: hidden;
-}
-
-.compress-modal__header {
-  padding: 18px 22px 10px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.compress-modal__title {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.compress-modal__sub {
-  font-size: 11.5px;
-  color: var(--text-secondary);
-  line-height: 1.4;
-}
-
-.compress-modal__diff {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  background: var(--border);
-  flex: 1;
-  overflow: hidden;
-  min-height: 0;
-}
-
-.compress-modal__col {
-  display: flex;
-  flex-direction: column;
-  background: var(--bg-primary);
-  min-height: 0;
-}
-
-.compress-modal__col-header {
-  padding: 10px 14px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid var(--border);
-  background: var(--bg-secondary);
-}
-
-.compress-modal__col-label {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.compress-modal__col-count {
-  font-size: 11px;
-  color: var(--text-muted);
-  font-variant-numeric: tabular-nums;
-}
-
-.compress-modal__col-content {
-  padding: 14px 16px;
-  margin: 0;
-  font-size: 12.5px;
-  line-height: 1.55;
-  color: var(--text-primary);
-  white-space: pre-wrap;
-  word-break: break-word;
-  overflow-y: auto;
-  flex: 1;
-  min-height: 0;
-}
-
-.compress-modal__footer {
-  padding: 12px 18px;
-  border-top: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  justify-content: flex-end;
-  background: var(--bg-secondary);
-}
-
-.compress-modal__ratio {
-  margin-right: auto;
-  font-size: 12px;
-  color: #f97316;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-}
-
-.compress-modal__btn {
-  border: 1px solid var(--border);
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  padding: 7px 14px;
-  border-radius: 4px;
-  font-size: 12px;
-  cursor: pointer;
-  transition: background 0.12s, border-color 0.12s;
-}
-
-.compress-modal__btn:hover {
-  border-color: var(--accent);
-}
-
-.compress-modal__btn:disabled {
-  opacity: 0.5;
-  cursor: default;
-}
-
-.compress-modal__btn--reject {
-  color: var(--text-secondary);
-}
-
-.compress-modal__btn--accept {
-  background: #f97316;
-  border-color: #f97316;
-  color: white;
-  font-weight: 600;
-}
-
-.compress-modal__btn--accept:hover {
-  background: #ea580c;
-  border-color: #ea580c;
-}
-
-.compress-modal__btn--danger {
-  color: #ef4444;
-  border-color: transparent;
-}
-
-.compress-modal__btn--danger:hover {
-  border-color: #ef4444;
-  background: rgba(239, 68, 68, 0.1);
-}
-
 @media (max-width: 720px) {
-  .compress-modal__diff { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
-}
+  }
 
 /* Read-only state for the memory editor — applied when cavemanCompressed is active.
    The compressed version is shown in place of the original; click Revert to edit. */
@@ -2884,50 +2626,6 @@
   outline: none;
   border-left-color: #ea580c;
 }
-
-/* Collapse button — visible only on hubs. Merges topics into flat node.
-   Purple accent to differentiate from orange (compress) and gray (default icons). */
-.mem-modal__collapse-btn {
-  color: #a78bfa;
-  transition: color 0.15s, transform 0.15s;
-}
-
-.mem-modal__collapse-btn:hover {
-  color: #8b5cf6;
-  transform: scale(1.08);
-}
-
-/* Compact variant of the compress modal — used for simple confirmations
-   (like Collapse Hub) where there's no side-by-side diff to display.
-   Narrower, natural height, centered feel instead of wide full-panel. */
-.compress-modal__dialog--compact {
-  width: min(480px, 94vw);
-  max-height: none;
-}
-
-.compress-modal__dialog--compact .compress-modal__header {
-  border-bottom: none;
-  padding: 20px 22px 16px;
-}
-
-.compress-modal__dialog--compact .compress-modal__footer {
-  justify-content: flex-end;
-  gap: 8px;
-}
-
-/* Progress line shown during batch Collapse All iterations */
-.compress-modal__progress {
-  padding: 0 22px;
-  font-size: 12px;
-  color: #f97316;
-  font-variant-numeric: tabular-nums;
-  min-height: 18px;
-}
-
-.compress-modal__progress:empty {
-  display: none;
-}
-
 
 /* ── New Agent Modal (template picker) ── */
 
