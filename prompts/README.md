@@ -26,7 +26,8 @@ All prompts are optimized for minimal token usage while preserving full function
 
 | File | Used by | Purpose |
 |------|---------|---------|
-| `compact-structured.md` | Session compaction (primary path) | One-pass JSON extraction: `sessionSummary` + topics |
+| `compact-context.md` | Context compaction (auto + manual button) | Rolls pending messages into ONE session summary for the [Context] block and voice turns. Never a memory |
+| `compact-structured.md` | `brainSession` (Brain button + post-call) | One-pass JSON extraction: `summary` + verbatim `artifacts`. The explicit act of remembering |
 | `compact-label.md` | Every memory write path | Compact headline (40–80 chars) for graph labels and edge annotations. Polarity-preserving |
 
 ## Memory — knowledge graph
