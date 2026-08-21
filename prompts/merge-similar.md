@@ -9,6 +9,7 @@ NEIGHBOR:
 Same topic → patch CURRENT only.
 Keep CURRENT's wording, subject, person, tense, format and style.
 Use NEIGHBOR only as factual update: replace outdated values and append truly new facts.
+A state progression (wants → chose → bought → done) is an outdated value: update it.
 Do not rewrite unchanged text. Do not adopt NEIGHBOR's wording or perspective.
 State only what is true now; never mention old values or corrections.
 Conflicting same attribute → NEIGHBOR wins.
