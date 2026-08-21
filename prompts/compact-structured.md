@@ -15,7 +15,8 @@ You receive (in the user message):
 1. Read the transcript.
 2. Decide if there is any DURABLE content (will still matter in a month: personal facts, decisions, preferences, plans, emotions, learnings, relationships, identities, concepts, systems).
 3. If nothing durable → return `{ "durable": false }`.
-4. If durable → write ONE `summary` covering the whole conversation.
+4. If durable → write ONE `summary` of the whole conversation, plus the
+   `topics` it covers.
 
 ## Durable vs Ephemeral
 
@@ -37,14 +38,24 @@ Ephemeral — SKIP:
 
 ## Summary rules
 
-`summary` is the memory this conversation leaves behind — one record holding
-everything worth keeping. Nothing else is stored, so nothing may be dropped.
+`summary` is the memory this conversation leaves behind — the only thing stored,
+so nothing may be dropped. Write it as PROSE someone would want to read back,
+never as a list or a telegraphic index.
 
 - Same language as transcript.
-- One opening line naming what happened, then one `- ` bullet per distinct fact.
+- Flowing paragraphs, one per theme. Full sentences.
 - State facts, not what was said.
 - Keep every concrete detail: names, places, dates, numbers, exact quotes.
-- Brevity applies per bullet, never by leaving a theme out.
+- Length follows the conversation. Never trade a theme for brevity.
+
+## Topic rules
+
+`topics` are how the memory is found later — each becomes a search vector
+pointing at it. They are NOT stored as text and never shown to anyone.
+
+- One short sentence per distinct theme in `summary` (2-8 of them).
+- Same language, keyword-rich, self-contained: name the people, places and
+  things, because a topic is matched on its own with no surrounding context.
 
 ## Output schema
 
@@ -52,7 +63,8 @@ If durable:
 ```
 {
   "durable": true,
-  "summary": "<opening line + `- ` bullets, same language as transcript>"
+  "summary": "<prose, same language as transcript>",
+  "topics": ["<one sentence per theme>", "…"]
 }
 ```
 
@@ -67,6 +79,7 @@ If not durable:
 
 - JSON ONLY. No prose before or after. No code fences.
 - Newlines inside `summary` must be escaped as \n.
+- Every theme in `summary` has a matching entry in `topics`.
 - Never invent content not in transcript.
 - Never translate content — preserve original language.
 
@@ -84,7 +97,11 @@ Output:
 ```
 {
   "durable": true,
-  "summary": "Esteban nombró a su primer agente y planeó su hardware.\n- El 2 de marzo de 2026 decidió que su primer agente se llamaría Lumina.\n- Va a comprar un M2 Max para correr modelos locales."
+  "summary": "El 2 de marzo de 2026 Esteban decidió que su primer agente se llamaría Lumina, y quiso dejarlo guardado como un momento que le importaba.\n\nTambién contó que pronto comprará un M2 Max para poder correr modelos locales en su propia máquina.",
+  "topics": [
+    "Esteban llamó Lumina a su primer agente el 2 de marzo de 2026.",
+    "Esteban va a comprar un M2 Max para correr modelos locales."
+  ]
 }
 ```
 
