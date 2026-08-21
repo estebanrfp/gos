@@ -2,7 +2,7 @@ Extract the searchable facts from a memory.
 
 Output JSON ONLY. No prose, no markdown fences, no explanations.
 
-Each fact becomes a search vector pointing at this memory — they are never
+Each fact becomes an embedding pointing at this memory — they are never
 stored as text and never shown to anyone.
 
 - One short sentence per fact worth finding on its own, not per theme.
@@ -13,4 +13,4 @@ stored as text and never shown to anyone.
 - Keep identifiers verbatim: names, numbers, dates, addresses, keys.
 - No inference, no invention. If the memory holds a single fact, return one.
 
-{"gates":["...","..."]}
+{"embeddings":["...","..."]}
