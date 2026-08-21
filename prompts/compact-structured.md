@@ -53,7 +53,7 @@ never as a list or a telegraphic index.
 `topics` are how the memory is found later — each becomes a search vector
 pointing at it. They are NOT stored as text and never shown to anyone.
 
-- One short sentence per distinct theme in `summary` (2-8 of them).
+- One short sentence per fact worth finding on its own — not per theme. "Esteban tenía una bicicleta plateada" is one. Up to 20.
 - Same language, keyword-rich, self-contained: name the people, places and
   things, because a topic is matched on its own with no surrounding context.
 
